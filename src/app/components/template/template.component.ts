@@ -7,12 +7,18 @@ import { NgForm } from '@angular/forms';
 })
 export class TemplateComponent {
 
+  usuario: Object = {
+    nombre: 'Alvaro Dax',
+    apellido: 'Diaz Amaya',
+    correo: 'user@example.com',
+  };
+
   constructor() { }
 
   guardar(forma: NgForm) {
     console.log('Formulario posteando');
-    console.log(forma);
-    console.log(forma.value);
+    console.log('ngForm', forma);
+    console.log('values', forma.value);
   }
 
 }

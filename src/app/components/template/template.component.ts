@@ -25,8 +25,6 @@ export class TemplateComponent {
     { codigo: 'GTM', nombre: 'Guatemala' },
   ];
 
-
-
   ListSexo: string[] = ['Masculino', 'Femenino', 'Sin Definir'];
 
   constructor() {

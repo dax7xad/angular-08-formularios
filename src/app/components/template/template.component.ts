@@ -15,16 +15,37 @@ export class TemplateComponent {
     nombre: null,
     apellido: null,
     correo: null,
+    pais: '',
+    sexo: null,
+    acepta: false,
   };
 
-  constructor() { }
+  paises: IPaises[] = [
+    { codigo: 'NI', nombre: 'Nicaragua' },
+    { codigo: 'GTM', nombre: 'Guatemala' },
+  ];
+
+
+
+  ListSexo: string[] = ['Masculino', 'Femenino', 'Sin Definir'];
+
+  constructor() {
+
+  }
 
   guardar(forma: NgForm) {
     console.log('Formulario posteando');
     console.log('ngForm', forma);
     console.log('values', forma.value);
     console.log('usuario', this.usuario);
+
   }
 
+}
+
+
+interface IPaises {
+  codigo: string;
+  nombre: string;
 }
 

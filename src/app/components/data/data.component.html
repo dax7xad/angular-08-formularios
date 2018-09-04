@@ -4,13 +4,21 @@
 
   <div>
 
-    <div class="form-group row">
+    <div class="form-group row" [ngClass]="{ 'has-danger' : !forma.get('nombre').valid }" >
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
         <input class="form-control"
                type="text"
-               placeholder="Nombre">
+               placeholder="Nombre"
+               formControlName="nombre">
+
+               <div *ngIf="forma.controls['nombre'].errors?.required" class ="form-control-feedback">
+                  El nombre es requerido
+               </div>
+               <div *ngIf="forma.controls['nombre'].errors?.minlength" class ="form-control-feedback">
+                Debe poseer al menos {‌{ forma.controls['nombre'].errors.minlength.requiredLength }} caracteres
+             </div>
       </div>
     </div>
 
@@ -20,7 +28,8 @@
 
         <input class="form-control"
                type="text"
-               placeholder="Apellido">
+               placeholder="Apellido"
+               formControlName="apellido">
       </div>
     </div>
 
@@ -32,7 +41,8 @@
 
       <input class="form-control"
              type="email"
-             placeholder="Correo electrónico">
+             placeholder="Correo electrónico"
+             formControlName="correo">
     </div>
   </div>
 
@@ -46,5 +56,7 @@
       </button>
     </div>
   </div>
+
+
 
 </form>

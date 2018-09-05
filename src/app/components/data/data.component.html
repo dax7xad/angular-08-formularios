@@ -1,23 +1,24 @@
 <h4>Formularios <small>data</small></h4>
 <hr>
-<form [formGroup]="forma" (ngSubmit)="guardarCambios()" novalidate="novalidate">
+<form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
-  <div>
+  <div formGroupName="nombrecompleto">
 
-    <div class="form-group row" [ngClass]="{ 'has-danger' : !forma.get('nombre').valid }" >
+    <div class="form-group row" [ngClass]="{ 'has-warning':!forma.get('nombrecompleto.nombre').valid }">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
         <input class="form-control"
                type="text"
                placeholder="Nombre"
-               formControlName="nombre">
+               formControlName="nombre"
+               [ngClass]="{ 'is-invalid':forma.get('nombrecompleto.nombre').invalid }">
 
-               <div *ngIf="forma.controls['nombre'].errors?.required" class ="form-control-feedback">
+               <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class ="form-control-feedback">
                   El nombre es requerido
                </div>
-               <div *ngIf="forma.controls['nombre'].errors?.minlength" class ="form-control-feedback">
-                Debe poseer al menos {‌{ forma.controls['nombre'].errors.minlength.requiredLength }} caracteres
+               <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class ="form-control-feedback">
+                Debe poseer al menos {{ forma.get('nombrecompleto.nombre').errors.minlength.requiredLength  }}  caracteres
              </div>
       </div>
     </div>

@@ -28,7 +28,8 @@ export class DataComponent implements OnInit {
         ]),
         apellido: new FormControl('', [
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(3),
+          this.noherrera
         ])
       }),
       correo: new FormControl('', [
@@ -37,12 +38,19 @@ export class DataComponent implements OnInit {
       ]),
       'pasatiempos': new FormArray([
         new FormControl('correr', Validators.required)
-      ])
-
+      ]),
+      'password1': new FormControl('', [Validators.required]),
+      'password2': new FormControl('')
     });
 
+    // Asignar validaciones
+    this.forma.controls['password2'].setValidators([
+      Validators.required,
+      this.noIgual
+    ]);
+
     // Cargar valores por defecto
-    //this.forma.setValue(this.usuario);
+    // this.forma.setValue(this.usuario);
 
 
   }
@@ -55,18 +63,40 @@ export class DataComponent implements OnInit {
     // this.forma.reset(this.usuario);
 
     // Restablecer el formulario (con valores vacios)
-    this.forma.reset({
-      nombrecompleto: {
-        nombre: '', apellido: ''
-      },
-      correo: '',
-    });
+    // this.forma.reset({
+    //   nombrecompleto: {
+    //     nombre: '', apellido: ''
+    //   },
+    //   correo: '',
+    // });
   }
 
   agregarPasatiempo() {
     (<FormArray>this.forma.controls['pasatiempos']).push(
       new FormControl('Dormir', Validators.required)
     );
+  }
+
+  /// Validacion Personalizada
+  noherrera(control: FormControl): { [s: string]: boolean } {
+
+    if (control.value === 'herrera') {
+      return { noherrera: true };
+    } else {
+      return null;
+    }
+  }
+
+  noIgual = (control: FormControl): { [s: string]: boolean } => {
+
+    if (control.value !== this.forma.controls['password1'].value) {
+      return {
+        noiguales: true
+      };
+    } else {
+      return null;
+    }
+
   }
 
 }

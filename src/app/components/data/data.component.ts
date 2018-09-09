@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-data',
@@ -19,7 +20,6 @@ export class DataComponent implements OnInit {
   };
 
   constructor() {
-
     this.forma = new FormGroup({
       nombrecompleto: new FormGroup({
         nombre: new FormControl('', [
@@ -36,11 +36,12 @@ export class DataComponent implements OnInit {
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')
       ]),
-      'pasatiempos': new FormArray([
+      pasatiempos: new FormArray([
         new FormControl('correr', Validators.required)
       ]),
-      'password1': new FormControl('', [Validators.required]),
-      'password2': new FormControl('')
+      username: new FormControl('', Validators.required, this.existeUsuario),
+      password1: new FormControl('', [Validators.required]),
+      password2: new FormControl('')
     });
 
     // Asignar validaciones
@@ -51,8 +52,6 @@ export class DataComponent implements OnInit {
 
     // Cargar valores por defecto
     // this.forma.setValue(this.usuario);
-
-
   }
 
   ngOnInit() { }
@@ -79,7 +78,6 @@ export class DataComponent implements OnInit {
 
   /// Validacion Personalizada
   noherrera(control: FormControl): { [s: string]: boolean } {
-
     if (control.value === 'herrera') {
       return { noherrera: true };
     } else {
@@ -88,7 +86,6 @@ export class DataComponent implements OnInit {
   }
 
   noIgual = (control: FormControl): { [s: string]: boolean } => {
-
     if (control.value !== this.forma.controls['password1'].value) {
       return {
         noiguales: true
@@ -96,7 +93,20 @@ export class DataComponent implements OnInit {
     } else {
       return null;
     }
-
   }
 
+  existeUsuario = (control: FormControl): Promise<any> | Observable<any> => {
+    const promesa = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'dax7xad') {
+          resolve({
+            existe: true
+          });
+        } else {
+          resolve(null);
+        }
+      }, 3000);
+    });
+    return promesa;
+  }
 }

@@ -8,18 +8,14 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control"
-               type="text"
-               placeholder="Nombre"
-               formControlName="nombre"
-               [ngClass]="{ 'is-invalid':forma.get('nombrecompleto.nombre').invalid }">
+        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [ngClass]="{ 'is-invalid':forma.get('nombrecompleto.nombre').invalid }">
 
-               <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class ="form-control-feedback">
-                  El nombre es requerido
-               </div>
-               <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class ="form-control-feedback">
-                Debe poseer al menos {{ forma.get('nombrecompleto.nombre').errors.minlength.requiredLength  }}  caracteres
-             </div>
+        <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class="form-control-feedback">
+          El nombre es requerido
+        </div>
+        <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class="form-control-feedback">
+          Debe poseer al menos {{ forma.get('nombrecompleto.nombre').errors.minlength.requiredLength }} caracteres
+        </div>
       </div>
     </div>
 
@@ -27,10 +23,7 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control"
-               type="text"
-               placeholder="Apellido"
-               formControlName="apellido">
+        <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
       </div>
     </div>
 
@@ -40,11 +33,21 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control"
-             type="email"
-             placeholder="Correo electrónico"
-             formControlName="correo">
+      <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo">
     </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pasatiempos</label>
+    <div class="col-md-8" formArrayName="pasatiempos">
+
+      <input *ngFor="let pasatiempo of forma.controls['pasatiempos'].controls; let i =index" [formControlName]="i" type="text"
+        class="form-control">
+
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="agregarPasatiempo()"> + </button>
+
   </div>
 
 
